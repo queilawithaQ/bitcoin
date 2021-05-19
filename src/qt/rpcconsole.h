@@ -99,7 +99,7 @@ private Q_SLOTS:
     void updateDetailWidget();
 
 public Q_SLOTS:
-    void clear(bool clearHistory = true);
+    void clear(bool keep_prompt = false);
     void fontBigger();
     void fontSmaller();
     void setFontSize(int newSize);
@@ -118,10 +118,6 @@ public Q_SLOTS:
     void browseHistory(int offset);
     /** Scroll console view to end */
     void scrollToEnd();
-    /** Handle selection caching before update */
-    void peerLayoutAboutToChange();
-    /** Handle updated peer information */
-    void peerLayoutChanged();
     /** Disconnect a selected node on the Peers tab */
     void disconnectSelectedNode();
     /** Ban a selected node on the Peers tab */

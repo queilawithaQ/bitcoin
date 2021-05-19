@@ -104,6 +104,10 @@ Updated RPCs
   with the `-json` option set, the following fields: `addresses`, `reqSigs` are no longer
   returned in the tx output of the response. (#20286)
 
+- The `listbanned` RPC now returns two new numeric fields: `ban_duration` and `time_remaining`.
+  Respectively, these new fields indicate the duration of a ban and the time remaining until a ban expires,
+  both in seconds. Additionally, the `ban_created` field is repositioned to come before `banned_until`. (#21602)
+
 Changes to Wallet or GUI related RPCs can be found in the GUI or Wallet section below.
 
 New RPCs
@@ -126,8 +130,17 @@ Changes to Wallet or GUI related settings can be found in the GUI or Wallet sect
 
 - Passing an invalid `-rpcauth` argument now cause bitcoind to fail to start.  (#20461)
 
+- The `getnodeaddresses` RPC now returns a "network" field indicating the
+  network type (ipv4, ipv6, onion, or i2p) for each address.  (#21594)
+
 Tools and Utilities
 -------------------
+
+- A new CLI `-addrinfo` command returns the number of addresses known to the
+  node per network type (including Tor v2 versus v3) and total. This can be
+  useful to see if the node knows enough addresses in a network to use options
+  like `-onlynet=<network>` or to upgrade to current and future Tor releases
+  that support Tor v3 addresses only.  (#21595)
 
 Wallet
 ------
@@ -138,6 +151,11 @@ Wallet
 
 - The `bumpfee` RPC is not available with wallets that have private keys
   disabled. `psbtbumpfee` can be used instead. (#20891)
+
+- The `fundrawtransaction`, `send` and `walletcreatefundedpsbt` RPCs now support an `include_unsafe` option
+  that when `true` allows using unsafe inputs to fund the transaction.
+  Note that the resulting transaction may become invalid if one of the unsafe inputs disappears.
+  If that happens, the transaction must be funded with different inputs and republished. (#21359)
 
 GUI changes
 -----------
